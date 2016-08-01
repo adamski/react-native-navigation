@@ -1,22 +1,28 @@
-apply plugin: 'com.android.library'
-apply from: '../prepare-robolectric.gradle'
+apply plugin: 'com.android.model.library'
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+model {
+    android {
+        compileSdkVersion = 23
+        buildToolsVersion = "25.0.0"
 
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        defaultConfig.with {
+            minSdkVersion.apiLevel = 16
+            targetSdkVersion.apiLevel = 22
+            versionCode = 1
+            versionName = "1.0"
+        }
+        defaultPublishConfig = 'release'
+        publishNonDefault = true
     }
-    buildTypes {
+    android.productFlavors {
+        create("library") {}
+    }
+    android.buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled = false
         }
         debug {
-            minifyEnabled false
+            minifyEnabled = false
         }
     }
     lintOptions {
@@ -27,10 +33,10 @@ android {
         unitTests.all { t ->
             reports {
                 html.enabled true
-            }
+    }
             testLogging {
                 events "passed", "skipped", "failed", "standardOut", "standardError"
-            }
+}
             afterSuite { desc, result ->
                 if (!desc.parent) { // will match the outermost suite
                     def output = "      ${result.resultType} (${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)     "
@@ -38,8 +44,6 @@ android {
                     println '\n\n' + ('-' * repeatLength) + '\n' + output + '\n' + ('-' * repeatLength) + '\n'
 
                     println "see report at file://${t.reports.html.destination}/index.html"
-                }
-            }
         }
     }
 }
@@ -62,3 +66,4 @@ dependencies {
     testCompile "org.robolectric:robolectric:3.1.4"
     testCompile 'org.assertj:assertj-core:2.5.0'
 }
+
