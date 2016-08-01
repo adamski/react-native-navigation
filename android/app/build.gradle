@@ -1,27 +1,28 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.model.library'
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+model {
+    android {
+        compileSdkVersion = 23
+        buildToolsVersion = "23.0.2"
 
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
-    }
-    defaultPublishConfig 'release'
-    publishNonDefault true
-    productFlavors {
-        library {
+        defaultConfig.with {
+            minSdkVersion.apiLevel = 16
+            targetSdkVersion.apiLevel = 22
+            versionCode = 1
+            versionName = "1.0"
         }
+        defaultPublishConfig = 'release'
+        publishNonDefault = true
     }
-    buildTypes {
+    android.productFlavors {
+        create("library") {}
+    }
+    android.buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled = false
         }
         debug {
-            minifyEnabled false
+            minifyEnabled = false
         }
     }
     lintOptions {
