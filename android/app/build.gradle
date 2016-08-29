@@ -14,9 +14,6 @@ model {
         defaultPublishConfig = 'release'
         publishNonDefault = true
     }
-    android.productFlavors {
-        create("library") {}
-    }
     android.buildTypes {
         release {
             minifyEnabled = false
