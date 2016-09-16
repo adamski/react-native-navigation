@@ -26,7 +26,7 @@ model {
         abortOnError = false
     }
 
-    testOptions {
+    android.testOptions {
         unitTests.all { t ->
             reports {
                 html.enabled true
