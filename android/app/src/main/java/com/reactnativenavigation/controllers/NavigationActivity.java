@@ -6,7 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
@@ -61,6 +63,8 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         }
 
         activityParams = NavigationCommandsHandler.parseActivityParams(getIntent());
+
+        getWindow().setSoftInputMode(activityParams.softInputMode);
 
         disableActivityShowAnimationIfNeeded();
         createLayout();
